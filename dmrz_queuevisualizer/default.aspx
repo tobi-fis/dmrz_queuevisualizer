@@ -16,32 +16,35 @@
     <form id="mainForm" runat="server">
         <div class="mainSection">
             <div class="uploadSection">
-                <p class="infoText">Bitte wählen sie eine Log-Datei als .txt aus, um die Queue als Bitmap darzustellen zu können:</p>
+                <p style="margin-bottom: 15px">Bitte wählen sie eine Log-Datei als .txt aus, um die Anrufe grafisch darstellen zu können:</p>
                 <div>
                     <asp:FileUpload ID="FileUpload1" runat="server" accept=".txt" onchange="activateButton('loadButton')" />
                     <asp:RegularExpressionValidator ID="RegExValFileUploadFileType" runat="server"
                         ControlToValidate="FileUpload1"
                         ErrorMessage="Bitte .txt Datei auswählen."
                         ForeColor="Red"
-                        Font-Size="Medium"
+                        Font-Names="Arial"
+                        Font-Size="14px"
                         ValidationExpression="(.*?)\.(txt)$"></asp:RegularExpressionValidator>
                 </div>
-               
+                <div class="uploadBottom">
+                    <asp:Label ID="errorInfo" CssClass="errorLabel" runat="server" Text=""></asp:Label>
                     <button runat="server" id="loadButton" class="btn1" text="Button" onserverclick="loadButton_Click">Log visualisieren</button>
-                
-
+                </div>
             </div>
+
+            <div class="imgDiv">
+                <asp:Image ID="outputImage" runat="server" />
+            </div>
+
         </div>
     </form>
 
     <!-- loadButton erst aktivieren, wenn Dateiendung stimmt -->
     <script type="text/javascript">
         function activateButton(btn) {
-            console.log('activebtn called');
             var ending = document.getElementById('FileUpload1').value.split('.')[1];
-            console.log(ending);
             if (ending == 'txt') {
-                console.log('true');
                 document.getElementById(btn).disabled = false;
             }
         }
