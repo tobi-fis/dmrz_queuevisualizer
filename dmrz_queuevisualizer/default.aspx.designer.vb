@@ -14,11 +14,38 @@ Option Explicit On
 Partial Public Class _Default
 
     '''<summary>
-    '''Button1 control.
+    '''mainForm control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents mainForm As Global.System.Web.UI.HtmlControls.HtmlForm
+
+    '''<summary>
+    '''FileUpload1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents FileUpload1 As Global.System.Web.UI.WebControls.FileUpload
+
+    '''<summary>
+    '''RegExValFileUploadFileType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RegExValFileUploadFileType As Global.System.Web.UI.WebControls.RegularExpressionValidator
+
+    '''<summary>
+    '''loadButton control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents loadButton As Global.System.Web.UI.HtmlControls.HtmlButton
 End Class

@@ -1,0 +1,54 @@
+﻿
+.header {
+    background: #12365b 0 0 no-repeat padding-box;
+    border: 1px solid #12365b;
+    height: 45px;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.infoText {
+    font: normal 14px/14px Arial;
+    margin: 5px 10px 5px 1px
+}
+
+.btn1 {
+    margin: 5px;
+    align-self: flex-end
+}
+
+.title {
+    color: #FFFFFF;
+    font: Bold 20px/20px Segoe UI;
+    letter-spacing: 0;
+    margin: 13px 13px 13px 36px;
+    opacity: 1;
+    text-align: left;
+    display: flex;
+}
+
+.mainSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.uploadSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: #12365b solid 2px;
+    padding: 10px;
+    
+}
+
+body {
+    margin: 0px;
+    height: 100vh
+}
+
