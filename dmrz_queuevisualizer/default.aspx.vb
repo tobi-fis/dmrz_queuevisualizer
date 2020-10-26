@@ -5,7 +5,7 @@ Public Class _Default
     Inherits Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-        loadButton.Disabled = True
+        loadButton.Disabled = True 'Standardmäßig disabled bis Datei gewählt
     End Sub
 
     'loadButton Click Handler
@@ -24,36 +24,42 @@ Public Class _Default
         Dim maxVal As Integer = 0 'Höchstwert zur Berechnung der Breite
 
         If fu.HasFile Then
+            outputImage.ImageUrl = Nothing
             Dim reader As StreamReader = New StreamReader(fu.FileContent)
-            Do
-                Dim textLine As String = reader.ReadLine()
-                If textLine.Contains("COMPLETE") Then
-                    Dim params() As String = Split(textLine, "|")
-                    terminatingEvents.Add(params)
+            Try
+                Do
+                    Dim textLine As String = reader.ReadLine()
+                    If textLine.Contains("COMPLETE") Then
+                        Dim params() As String = Split(textLine, "|")
+                        terminatingEvents.Add(params)
 
-                    'Neuer Höchstwert erreicht?
-                    Dim time As Integer = Integer.Parse(params(5)) + Integer.Parse(params(6))
-                    maxVal = If(time > maxVal, time, maxVal)
+                        'Neuer Höchstwert erreicht?
+                        Dim time As Integer = Integer.Parse(params(5)) + Integer.Parse(params(6))
+                        maxVal = If(time > maxVal, time, maxVal)
 
-                ElseIf textLine.Contains("ABANDON") Then
-                    Dim params() As String = Split(textLine, "|")
-                    terminatingEvents.Add(params)
+                    ElseIf textLine.Contains("ABANDON") Then
+                        Dim params() As String = Split(textLine, "|")
+                        terminatingEvents.Add(params)
 
-                    'Neuer Höchstwert erreicht?
-                    Dim time As Integer = Integer.Parse(params(7))
-                    maxVal = If(time > maxVal, time, maxVal)
+                        'Neuer Höchstwert erreicht?
+                        Dim time As Integer = Integer.Parse(params(7))
+                        maxVal = If(time > maxVal, time, maxVal)
+                    End If
+                Loop While reader.Peek() <> -1
+
+                reader.Close()
+
+                'Falls keine Einträge gefunden Fehler ausgeben, sonst Bitmap erstellen
+                If terminatingEvents.Count > 0 Then
+                    errorInfo.Text = ""
+                    CreateBitmap(terminatingEvents, maxVal)
+                Else
+                    errorInfo.Text = "Keine verwertbaren Einträge im Log gefunden."
                 End If
-            Loop While reader.Peek() <> -1
 
-            reader.Close()
-
-            'Falls keine Einträge gefunden Fehler ausgeben, sonst Bitmap erstellen
-            If terminatingEvents.Count > 0 Then
-                CreateBitmap(terminatingEvents, maxVal)
-            Else
-                errorInfo.Text = "Keine verwertbaren Einträge im Log gefunden."
-            End If
-
+            Catch ex As Exception
+                errorInfo.Text = "Fehlerhafte Log-Datei!"
+            End Try
         End If
     End Sub
 
@@ -109,6 +115,8 @@ Public Class _Default
         Dim SigBase64 = Convert.ToBase64String(byteImage)
         outputImage.ImageUrl = "data:image/bmp;base64," + SigBase64
         ms.Close()
+        charts.Dispose()
+        chartsGraphics.Dispose()
 
     End Sub
 

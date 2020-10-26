@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "dmrz_queuevisualizer", "dmrz_queuevisualizer.vbproj", "{B006C6CF-B0E5-4759-937F-18A09402BC06}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "queuevis_test", "..\queuevis_test\queuevis_test.vbproj", "{FF0C4D85-C6B4-4F7B-93E1-E876EAA0268E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{B006C6CF-B0E5-4759-937F-18A09402BC06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B006C6CF-B0E5-4759-937F-18A09402BC06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B006C6CF-B0E5-4759-937F-18A09402BC06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF0C4D85-C6B4-4F7B-93E1-E876EAA0268E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF0C4D85-C6B4-4F7B-93E1-E876EAA0268E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF0C4D85-C6B4-4F7B-93E1-E876EAA0268E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF0C4D85-C6B4-4F7B-93E1-E876EAA0268E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

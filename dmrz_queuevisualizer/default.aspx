@@ -10,11 +10,10 @@
 <body>
     <div class="header">
         <div id="title" class="title">Asterisk Queue Visualizer</div>
-
     </div>
 
-    <form id="mainForm" runat="server">
-        <div class="mainSection">
+    <div class="mainSection">
+        <form id="mainForm" runat="server">
             <div class="uploadSection">
                 <p style="margin-bottom: 15px">Bitte wählen sie eine Log-Datei als .txt aus, um die Anrufe grafisch darstellen zu können:</p>
                 <div>
@@ -28,16 +27,15 @@
                         ValidationExpression="(.*?)\.(txt)$"></asp:RegularExpressionValidator>
                 </div>
                 <div class="uploadBottom">
-                    <asp:Label ID="errorInfo" CssClass="errorLabel" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="errorInfo" CssClass="errorLabel" runat="server" Text=" "></asp:Label>
                     <button runat="server" id="loadButton" text="Button" onserverclick="loadButton_Click">Log visualisieren</button>
                 </div>
             </div>
-
-            <div class="imgDiv">
-                <asp:Image ID="outputImage" runat="server" />
-            </div>
+        </form>
+        <div class="imgDiv">
+            <asp:Image ID="outputImage" runat="server" />
         </div>
-    </form>
+    </div>
 
     <!-- loadButton erst aktivieren, wenn Dateiendung stimmt -->
     <script type="text/javascript">
