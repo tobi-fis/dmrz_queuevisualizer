@@ -29,14 +29,13 @@
                 </div>
                 <div class="uploadBottom">
                     <asp:Label ID="errorInfo" CssClass="errorLabel" runat="server" Text=""></asp:Label>
-                    <button runat="server" id="loadButton" class="btn1" text="Button" onserverclick="loadButton_Click">Log visualisieren</button>
+                    <button runat="server" id="loadButton" text="Button" onserverclick="loadButton_Click">Log visualisieren</button>
                 </div>
             </div>
 
             <div class="imgDiv">
                 <asp:Image ID="outputImage" runat="server" />
             </div>
-
         </div>
     </form>
 

@@ -4,7 +4,6 @@ Imports System.IO
 Public Class _Default
     Inherits Page
 
-    Dim currentDir As String = Server.MapPath(".")
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         loadButton.Disabled = True
     End Sub
@@ -48,6 +47,7 @@ Public Class _Default
 
             reader.Close()
 
+            'Falls keine Einträge gefunden Fehler ausgeben, sonst Bitmap erstellen
             If terminatingEvents.Count > 0 Then
                 CreateBitmap(terminatingEvents, maxVal)
             Else
@@ -59,17 +59,17 @@ Public Class _Default
 
     'Bitmap zeichnen und rendern
     Private Sub CreateBitmap(events As ArrayList, maxVal As Integer)
-        Dim b_height As Integer = events.Count * 30 + 10 'Höhe Abhängig von Anzahl der Balken
-        Dim b_width As Integer = maxVal * 10 + 175 'Breite Abhängig von Höchstwert
-        Dim charts As Bitmap = New Bitmap(b_width, b_height)
-        Dim chartsGraphics As Graphics = Graphics.FromImage(charts)
-        chartsGraphics.Clear(Color.WhiteSmoke)
-
+        'Bitmap und Startkoordinaten initialisieren
         Dim drawX = 165
         Dim drawY = 10
+        Dim b_height As Integer = events.Count * 30 + 10 'Höhe Abhängig von Anzahl der Balken
+        Dim b_width As Integer = 175 + maxVal * 10  'Breite Abhängig von Höchstwert
+        Dim charts As Bitmap = New Bitmap(b_width, b_height)
+        Dim chartsGraphics As Graphics = Graphics.FromImage(charts)
+        chartsGraphics.Clear(Color.WhiteSmoke) 'Hintergrundfarbe
+
         Dim drawFontID = New Font("Arial", 12)
         Dim drawFontTime = New Font("Arial", 10)
-
 
         For Each params As String() In events
             'ID platzieren
@@ -78,10 +78,10 @@ Public Class _Default
             If params(4).Contains("COMPLETE") Then 'Normal beendete Anrufe
                 Dim waitLength As Integer = Integer.Parse(params(5)) * 10
 
-                'Balken zeichnen für Wartezeit
+                'Gelben Balken zeichnen für Wartezeit
                 chartsGraphics.FillRectangle(Brushes.Yellow, drawX, drawY, waitLength, 20)
 
-                'Balken zeichnen für Gesprächszeit
+                'Grünen Balken zeichnen für Gesprächszeit
                 chartsGraphics.FillRectangle(Brushes.Green, drawX + waitLength, drawY, Integer.Parse(params(6)) * 10, 20)
 
                 'Wartezeit in Sekunden platzieren
@@ -93,7 +93,7 @@ Public Class _Default
                 drawY += 30
 
             Else 'Nicht beantwortete Anrufe
-                'Balken zeichnen
+                'Roten Balken zeichnen
                 chartsGraphics.FillRectangle(Brushes.Red, drawX, drawY, Integer.Parse(params(7)) * 10, 20)
 
                 'Zeit in Sekunden platzieren
@@ -107,7 +107,9 @@ Public Class _Default
         charts.Save(ms, Imaging.ImageFormat.Bmp)
         Dim byteImage As Byte() = ms.ToArray()
         Dim SigBase64 = Convert.ToBase64String(byteImage)
-        outputImage.ImageUrl = "data:image/png;base64," + SigBase64
+        outputImage.ImageUrl = "data:image/bmp;base64," + SigBase64
+        ms.Close()
+
     End Sub
 
 End Class
